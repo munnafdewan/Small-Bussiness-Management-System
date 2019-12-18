@@ -1,0 +1,29 @@
+﻿@model Error404.Models.CategoryViewModel
+<table id="customers">
+    <tr>
+        <th>SL</th>
+        <th>Code No</th>
+        <th>Name</th>
+        <th style="text-align:center">Action</th>
+    </tr>
+    @{
+        int i = 0;
+    }
+    @foreach (var category in Model.Categories)
+    {
+        <tr>
+            <td>@(++i)</td>
+            <td>@category.Code</td>
+            <td>@category.Name</td>
+            <td>
+                <span style="font-weight:bold;">
+                    @Html.ActionLink("Edit", "EditCategory", "Category", new { Id = category.Id }, null)</span>
+                <span style="font-weight:bold;">
+                    @Html.ActionLink("View", "ShowByIdCategory", "Category", new { Id = category.Id }, null)</span>
+            </td>
+        </tr>
+    }
+
+</table>
+
+

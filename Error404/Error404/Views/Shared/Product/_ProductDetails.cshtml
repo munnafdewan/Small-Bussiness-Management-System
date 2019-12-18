@@ -1,0 +1,35 @@
+﻿@model Error404.Models.ProductViewModel
+<table id="customers">
+    <tr>
+        <th>SL</th>
+        <th>Code No</th>
+        <th>Name</th>
+        <th>ReorderLevel</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th style="text-align:center">Action</th>
+    </tr>
+    @{
+        int i = 0;
+    }
+    @foreach (var product in Model.Products)
+    {
+        <tr>
+            <td>@(++i)</td>
+            <td>@product.Code</td>
+            <td>@product.Name</td>
+            <td>@product.ReorderLevel</td>
+            <td>@product.Description</td>
+            <td>@product.Category.Name</td>
+            <td>
+                <span style="font-weight:bold;">
+                    @Html.ActionLink("Edit", "EditProduct", "Product", new { Id = product.Id }, null)
+                </span>
+                <span style="font-weight:bold;">
+                    @Html.ActionLink("View", "ShowByIdProduct", "Product", new { Id = product.Id }, null)
+                </span>
+            </td>
+        </tr>
+    }
+
+</table>

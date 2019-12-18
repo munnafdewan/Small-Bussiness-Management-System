@@ -1,0 +1,406 @@
+﻿@model Error404.Models.PurchaseViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="container pb-5">
+        <h2 class="text-center">Add Purchase</h2>
+        <br /><br />
+              <form method="post">
+                  <div class="form-horizontal">
+                      @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                      <div class="card">
+                          <div class="card-header text-info text-center"><h3>Supplier</h3></div>
+                          <div class="card-body badge-gradient-dark">
+                              <div class="row">
+                                  <div class="col-sm-4">
+                                      <div class="form-group">
+                                          @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label" })
+                                          <input type="date" name="Date" class="form-control" />
+                                          @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                      <div class="form-group">
+                                          @Html.LabelFor(model => model.InvoiceNo, htmlAttributes: new { @class = "control-label" })
+                                          <div class="col-md-10">
+                                              @Html.EditorFor(model => model.InvoiceNo, new { htmlAttributes = new { @class = "form-control" } })
+                                              @Html.ValidationMessageFor(model => model.InvoiceNo, "", new { @class = "text-danger" })
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                      <div class="form-group">
+                                          <label class="control-label">Supplier</label>
+                                          <div class="col-md-10">
+                                              @Html.DropDownListFor(c => c.SupplierId, Model.SupplierSelectListItems, "--Select--", new { @class = "form-control" })
+                                              @Html.ValidationMessageFor(model => model.SupplierId, "", new { @class = "text-danger" })
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+
+                      <div class="card">
+                          <div class="card-header text-info text-center"><h3>Product</h3></div>
+                          <div class="card-body badge-gradient-dark">
+                              <div class="row">
+                                  <div class="col-sm-4">
+                                      <div class="form-group">
+                                          <label class="control-label">Category</label>
+                                          @Html.DropDownList("CategoryId", null, "--Select--", new { @class = "form-control" })
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="control-label">Available Quantity</label>
+                                          <input type="text" class="form-control" id="AvailableQuantity" name="AvailableQuantity">
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="control-label">Quantity</label>
+                                          <input type="text" class="form-control" id="Quantity" name="Quantity">
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="control-label">Previous Unit Price</label>
+                                          <input type="text" class="form-control" id="PreviousUnitPrice" name="PreviousUnitPrice">
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                      <div class="form-group">
+                                          <label class="control-label">Product</label>
+                                          <select id="ProductId" class="form-control">
+                                              <option>--Select--</option>
+                                          </select>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="control-label">Manufacture Date</label>
+                                          <input type="date" class="form-control" id="ManufactureDate" name="ManufactureDate">
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="control-label">Unit Price</label>
+                                          <input type="text" class="form-control" id="UnitPrice" name="UnitPrice">
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="control-label">Previous MRP</label>
+                                          <input type="text" class="form-control" id="PreviousMRP" name="PreviousMRP">
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-4">
+                                      <div class="form-group">
+                                          <label class="control-label">Code</label>
+                                          <input type="text" class="form-control" id="Code" name="Code">
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="control-label">Expire Date</label>
+                                          <input type="date" class="form-control" id="ExpireDate" name="ExpireDate">
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="control-label">Total Price</label>
+                                          <input type="text" class="form-control" id="TotalPrice" name="TotalPrice">
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="control-label">MRP</label>
+                                          <input type="text" class="form-control" id="MRP" name="MRP">
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12">
+                                      <div class="form-group">
+                                          <label class="control-label">Remarks</label>
+                                          <textarea rows="2" class="form-control" name="Remarks" id="Remarks"></textarea>
+                                      </div>
+                                  </div>
+                              </div>
+                              <input type="button" class="btn btn-success float-right" id="Add" value="Add" />
+                          </div>
+                      </div>
+
+                      <div class="card">
+                          <div class="card-header text-info text-center"><h3>Product List</h3></div>
+                          <div class="card-body badge-gradient-dark">
+                              <table class="table table-bordered table-hover table-responsive">
+                                  <thead>
+                                      <tr class="badge-gradient-dark text-white">
+                                          <td>Sl</td>
+                                          <td>Category</td>
+                                          <td>Product</td>
+                                          <td>Code</td>
+                                          <td>AvailableQuantity</td>
+                                          <td>ManufactureDate</td>
+                                          <td>ExpireDate</td>
+                                          <td>Quantity</td>
+                                          <td>UnitPrice</td>
+                                          <td>TotalPrice</td>
+                                          <td>PreviousUnitPrice</td>
+                                          <td>PreviousMRP</td>
+                                          <td>MRP</td>
+                                          <td>Remarks</td>
+                                      </tr>
+                                  </thead>
+                                  <tbody id="ResultDetailsTable"></tbody>
+                              </table>
+                              <br />
+                              <input type="submit" class="btn btn-success float-right" value="Save" id="tblsubmit" />
+                          </div>
+                      </div>
+                  </div>
+              </form>
+    </div>
+
+@section MyScript
+{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    @*For Total Price*@
+    <script>
+        $(document).ready(function () {
+
+            var quantity = 0;
+            var unitPrice = 0;
+            $("#Quantity").keyup(function () {
+                if (!IsNullOrEmpty($("#Quantity").val())) {
+                    quantity = parseInt($("#Quantity").val());
+                }
+                if (!IsNullOrEmpty($("#UnitPrice").val())) {
+                    unitPrice = parseInt($("#UnitPrice").val());
+                }
+                $("#TotalPrice").val(quantity * unitPrice);
+            });
+
+            $("#UnitPrice").keyup(function () {
+                if (!IsNullOrEmpty($("#Quantity").val())) {
+                    quantity = parseInt($("#Quantity").val());
+                }
+                if (!IsNullOrEmpty($("#UnitPrice").val())) {
+                    unitPrice = parseInt($("#UnitPrice").val());
+                }
+                $("#TotalPrice").val(quantity * unitPrice);
+            });
+
+
+            function IsNullOrEmpty(data) {
+                if (data === "" || data === "" || isNaN(data)) {
+                    return true;
+                }
+                return false;
+            }
+        });
+    </script>
+
+    @*For MRP*@
+    <script>
+        $(document).ready(function () {
+
+            var unitPrice = 0;
+            //var unitPrice = 0;
+            $("#UnitPrice").keyup(function () {
+                if (!IsNullOrEmpty($("#UnitPrice").val())) {
+                    unitPrice = parseInt($("#UnitPrice").val());
+                }
+
+                $("#MRP").val(unitPrice * .25 + unitPrice);
+            });
+
+            function IsNullOrEmpty(data) {
+                if (data === "" || data === "" || isNaN(data)) {
+                    return true;
+                }
+                return false;
+            }
+        });
+    </script>
+
+
+    @*For Add Jquery Data*@
+    <script>
+
+        $(document).ready(function () {
+            var index = 0;
+
+            $('#Add').click(function () {
+                var result = GetResultData();
+
+                var resultRow = GerResultRow(result);
+
+                $("#ResultDetailsTable").append(resultRow);
+                index++;
+            });
+
+            function GetResultData() {
+                var category = $('#CategoryId').val();
+                var categoryName = $('#CategoryId option:selected').html();
+                var product = $('#ProductId').val();
+                var productName = $('#ProductId option:selected').text();
+                var code = $('#Code').val();
+                var availableQuantity = $('#AvailableQuantity').val();
+                var manufactureDate = $('#ManufactureDate').val();
+                var expireDate = $('#ExpireDate').val();
+                var quantity = $('#Quantity').val();
+                var unitPrice = $('#UnitPrice').val();
+                var totalPrice = $('#TotalPrice').val();
+                var previousUnitPrice = $('#PreviousUnitPrice').val();
+                var previousMRP = $('#PreviousMRP').val();
+                var MRP = $('#MRP').val();
+                var remarks = $('#Remarks').val();
+
+                return {
+                    CategoryId: category, CategoryName: categoryName, ProductName: productName, ProductId: product, Code: code, AvailableQuantity: availableQuantity,
+                    ManufactureDate: manufactureDate, ExpireDate: expireDate, Quantity: quantity, UnitPrice: unitPrice, TotalPrice: totalPrice,
+                    PreviousUnitPrice: previousUnitPrice, PreviousMRP: previousMRP, MRP: MRP, Remarks: remarks
+                }
+            }
+
+            var sl = index;
+            function GerResultRow(result) {
+
+                var categoryHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].CategoryId' value='" + result.CategoryId + "'></div>";
+                var productHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].ProductId' value='" + result.ProductId + "'></div>";
+                var codeHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].Code' value='" + result.Code + "'></div>";
+                var aQuantityHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].AvailableQuantity' value='" + result.AvailableQuantity + "'></div>";
+                var mDateHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].ManufactureDate' value='" + result.ManufactureDate + "'></div>";
+                var eDateHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].ExpireDate' value='" + result.ExpireDate + "'></div>";
+                var quantityHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].Quantity' value='" + result.Quantity + "'></div>";
+                var uPriceHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].UnitPrice' value='" + result.UnitPrice + "'></div>";
+                var tPriceHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].TotalPrice' value='" + result.TotalPrice + "'></div>";
+                var pUPriceHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].PreviousUnitPrice' value='" + result.PreviousUnitPrice + "'></div>";
+                var pMRPHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].PreviousMRP' value='" + result.PreviousMRP + "'></div>";
+                var MRPHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].MRP' value='" + result.MRP + "'></div>";
+                var remarksHidden = "<input type='hidden' name='PurchaseDetails[" + index + "].Remarks' value='" + result.Remarks + "'></div>";
+
+                var startTr = "<tr>";
+                var slCell = "<td class='text-success'>" + (++sl) + "</td>";
+                var categoryCell = "<td class='text-success'>" + categoryHidden + result.CategoryName + "</td>";
+                var productCell = "<td class='text-success'>" + productHidden + result.ProductName + "</td>";
+                var codeCell = "<td class='text-success'>" + codeHidden + result.Code + "</td>";
+                var aQuantityCell = "<td class='text-success'>" + aQuantityHidden + result.AvailableQuantity + "</td>";
+                var mDateCell = "<td class='text-success'>" + mDateHidden + result.ManufactureDate + "</td>";
+                var eDateCell = "<td class='text-success'>" + eDateHidden + result.ExpireDate + "</td>";
+                var quantityCell = "<td class='text-success'>" + quantityHidden + result.Quantity + "</td>";
+                var uPriceCell = "<td class='text-success'>" + uPriceHidden + result.UnitPrice + "</td>";
+                var tPriceCell = "<td class='text-success'>" + tPriceHidden + result.TotalPrice + "</td>";
+                var pUPricCell = "<td class='text-success'>" + pUPriceHidden + result.PreviousUnitPrice + "</td>";
+                var pMRPCell = "<td class='text-success'>" + pMRPHidden + result.PreviousMRP + "</td>";
+                var MRPCell = "<td class='text-success'>" + MRPHidden + result.MRP + "</td>";
+                var remarksCell = "<td class='text-success'>" + remarksHidden + result.Remarks + "</td>";
+                var endTr = "</tr>";
+
+                return (startTr + slCell + categoryCell + productCell + codeCell
+                    + aQuantityCell + mDateCell + eDateCell + quantityCell + uPriceCell
+                    + tPriceCell + pUPricCell + pMRPCell + MRPCell + remarksCell + endTr);
+
+            }
+
+        });
+    </script>
+
+    @*For CategoryWise Product*@
+    <script>
+        $(document).ready(function () {
+            $("#CategoryId").change(function () {
+                var categoryId = $("#CategoryId").val();
+                var jsonRequestData = { categoryId: categoryId }
+
+                $.ajax({
+                    url: "/Purchase/GetProductByCategoryId",
+                    type: "POST",
+                    data: jsonRequestData,
+                    success: function (data) {
+                        //alert("Ajax Success.");
+                        $("#ProductId").empty();
+                        $("#ProductId").append('<option>--Select--</option>');
+                        $.each(data, function (key, value) {
+                            $("#ProductId").append('<option value = "' + value.Id + '">' + value.Name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        alert("Ajax Failed.");
+                    },
+                });
+            });
+        });
+    </script>
+
+    @*For Product Code*@
+    <script>
+        $(document).ready(function () {
+            $("#ProductId").change(function () {
+                var productId = $("#ProductId").val();
+                var jsonRequestData = { productId: productId }
+
+                $.ajax({
+                    url: "/Purchase/GetCodeByProductId",
+                    type: "POST",
+                    data: jsonRequestData,
+                    success: function (data) {
+                        //alert("Ajax Success.");
+
+                        $.each(data, function (key, value) {
+                            $("#Code").val(value.Code);
+                            //$("#MRP").val(value.Code);
+                        });
+                    },
+                    error: function () {
+                        alert("Ajax Failed.");
+                    },
+                });
+            });
+        });
+    </script>
+
+    @*For Showing Previous Unit Price*@
+    <script>
+        $(document).ready(function () {
+            $("#ProductId").change(function () {
+                var productId = $("#ProductId").val();
+                var categoryId = $("#CategoryId").val();
+
+                var jsonRequesData = { productId: productId, categoryId: categoryId };
+
+                $.ajax({
+                    url: "/Purchase/GetProductDetailsById",
+                    type: "POST",
+                    data: jsonRequesData,
+                    success: function (data) {
+                       
+                        //alert("Ajax Request Success");
+                        $("#Quantity").val(data.quantity);
+        
+                        $("##PreviousUnitPrice").val(Math.round(data.PreviousUnitPrice));
+                        $("#PreviousMRP").val(Math.round(data.previousMRP));
+
+                    },
+                    error: function () {
+                        alert("Ajax Requiest Error");
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    @*For Showing AvailableQuantity By ProductId*@
+    <script>
+        $(document).ready(function () {
+            $("#ProductId").change(function () {
+                var productId = $("#ProductId").val();
+                var jsonRequestData = { productId: productId }
+
+                $.ajax({
+                    url: "/Purchase/GetAvailableQtyByProductId",
+                    type: "POST",
+                    data: jsonRequestData,
+                    success: function (data) {
+                        //alert(data.PreviousUnitPrice);
+                        $("#AvailableQuantity").val(data)
+                    },
+                    error: function () {
+                        alert("Ajax Failed For AvailableQuantity.");
+                    },
+                });
+            });
+        });
+    </script>
+}
+
+

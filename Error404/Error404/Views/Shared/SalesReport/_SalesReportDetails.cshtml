@@ -1,0 +1,38 @@
+﻿
+
+@model Error404.Models.SalesReportViewModel
+<table>
+    <tr>
+        <th>Sl</th>
+        <th>Date</th>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>SoldQty</th>
+        <th>CP</th>
+        <th>SoldPrice</th>
+        <th>Profit</th>
+    </tr>
+    @{
+            int i = 1;
+        }
+        @foreach (var salesReport in Model.SalesReport)
+        {
+    <tr>
+        <td>@(i++)</td>
+        <td>@salesReport.Date</td>
+        <td>@salesReport.Code</td>
+        <td>@salesReport.Name</td>
+        <td>@salesReport.Category</td>
+        <td>@salesReport.Soldqty</td>
+        <td>@salesReport.CP</td>
+        <td>@salesReport.SalesPrice</td>
+        <td>@salesReport.Profit</td>
+
+
+    </tr>
+        }
+
+</table>
+
+

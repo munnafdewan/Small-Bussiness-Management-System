@@ -1,0 +1,104 @@
+﻿@model Error404.Model.Model.Product
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section MyStyle
+{
+    <style>
+        input[type=text], select {
+            width: 70%;
+            padding: 8px 10px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 15%;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 55%;
+        }
+
+            input[type=submit]:hover {
+                background-color: #45a049;
+            }
+
+        /*For table*/
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+            #customers td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #customers tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #customers tr:hover {
+                background-color: #ddd;
+            }
+
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;
+                text-align: center;
+            }
+
+            #customers td {
+                text-align: center;
+            }
+
+                #customers td a {
+                    text-decoration: none;
+                }
+    </style>
+}
+
+
+<h3 style="text-align:center;">Single Product Details</h3>
+<table id="customers">
+
+
+    <tr>
+        <td>Code</td>
+        <td>@Model.Code</td>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <td>ReorderLevel</td>
+        <td>@Model.ReorderLevel</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>@Model.Description</td>
+    </tr>
+    <tr>
+        <td>Category</td>
+        <td>@Model.CategoryId</td>
+    </tr>
+
+</table>
+
+
+

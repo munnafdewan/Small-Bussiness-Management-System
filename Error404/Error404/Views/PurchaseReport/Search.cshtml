@@ -1,0 +1,67 @@
+﻿
+@model  Error404.Models.PurchaseReportViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container pb-5">
+    <form method="post">
+        <div class="card">
+            <div class="card-header text-info text-center"><h3>Purchase Report</h3></div>
+            <div class="card-body badge-gradient-dark">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label">Start Date</label>
+                            <input type="date" name="StartDate" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="form-label">End Date</label>
+                            <input type="date" name="EndDate" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-success float-right" value="Search" />
+            </div>            
+        </div>
+    </form>
+
+
+    <br /><br />
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr class="badge-gradient-dark text-white">
+                <th>Sl</th>
+                <th>Date</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>AvailableQty</th>
+                <th>CP</th>
+                <th>SoldPrice</th>
+                <th>Profit</th>
+            </tr>
+        </thead>
+        @{
+            int i = 1;
+        }
+        <tbody>
+            @foreach (var purchaseReport in Model.PurchaseReport)
+            {
+                <tr>
+                    <td>@(i++)</td>
+                    <td>@purchaseReport.Date</td>
+                    <td>@purchaseReport.Code</td>
+                    <td>@purchaseReport.Name</td>
+                    <td>@purchaseReport.Category</td>
+                    <td>@purchaseReport.Availableqty</td>
+                    <td>@purchaseReport.CP</td>
+                    <td>@purchaseReport.SalesPrice</td>
+                    <td>@purchaseReport.Profit</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

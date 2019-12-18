@@ -1,0 +1,51 @@
+﻿@model Error404.Models.SupplierViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="container pb-5">
+    <h2 class="text-center">Supplier Details</h2>
+    <br /><br />
+    <form method="post">
+        <div class="form-inline my-4">
+            <input class="form-control" type="text" name="SearchString" placeholder="Search By Code , Name or Email" style="width: 87%;border: 1px solid #19BDA5;">
+            <input class="btn btn-success" type="submit" value="Search" />
+        </div>
+    </form>
+    <br />
+    @Html.ActionLink("Add", "Add", "Supplier", null, new { @class = "btn btn-info" })
+    <br /><br />
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr class="badge-gradient-dark text-white">
+                <th>Sl</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Contact Person</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        @{
+            int i = 1;
+        }
+        <tbody>
+            @foreach (var supplier in Model.Suppliers)
+            {
+                <tr>
+                    <td>@(i++)</td>
+                    <td>@supplier.Code</td>
+                    <td>@supplier.Name</td>
+                    <td>@supplier.Address</td>
+                    <td>@supplier.Email</td>
+                    <td>@supplier.Contact</td>
+                    <td>@supplier.Contactperson</td>
+                    <td>@Html.ActionLink("Edit", "Edit", "Supplier", new { Id = supplier.Id }, new { @class = "btn btn-danger" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

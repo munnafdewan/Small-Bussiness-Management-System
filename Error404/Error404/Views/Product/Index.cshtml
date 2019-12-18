@@ -1,0 +1,47 @@
+﻿@model  Error404.Models.ProductViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container pb-5">
+    <h2 class="text-center">Product Details</h2>
+    <br /><br />
+    <form method="post">
+        <div class="form-inline my-4">
+            <input class="form-control" type="text" name="SearchString" placeholder="Search By Code , Name or Email" style="width: 87%;border: 1px solid #19BDA5;">
+            <input class="btn btn-success" type="submit" value="Search" />
+        </div>
+    </form>
+    <br />
+    @Html.ActionLink("Add", "AddProduct", "Product", null, new { @class = "btn btn-info" })
+    <br /><br />
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr class="badge-gradient-dark text-white">
+                <th>SL</th>
+                <th>Code No</th>
+                <th>Name</th>
+                <th>ReorderLevel</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        @{
+            int i = 0;
+        }
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+            <tr>
+                <td>@(++i)</td>
+                <td>@product.Code</td>
+                <td>@product.Name</td>
+                <td>@product.ReorderLevel</td>
+                <td>@product.Description</td>
+                <td>@product.Category.Name</td>
+                <td>@Html.ActionLink("Edit", "EditProduct", "Product", new { Id = product.Id }, new { @class = "btn btn-danger" })</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,38 @@
+﻿
+@model Error404.Models.StockViewModel
+<table>
+    <tr>
+        <th>Sl</th>
+        <th>Date</th>
+        <th>Code</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>OpeningBalance</th>
+        <th>In</th>
+        <th>Out</th>
+        <th>ClosingBalance</th>
+    </tr>
+    @*@{
+            int i = 1;
+        }
+        @foreach (var purchaseReport in Model.PurchaseReportViewModels)
+        {
+        <tr>
+            <td>@(i++)</td>
+            <td>@purchaseReport.Code</td>
+            <td>@purchaseReport.Name</td>
+            <td>@purchaseReport.Categories</td>
+            <td>@purchaseReport.Soldqnty</td>
+            <td>@purchaseReport.CP</td>
+            <td>@purchaseReport.SalesPrice</td>
+            <td>@purchaseReport.Profit</td>
+
+
+        </tr>
+        }*@
+
+</table>
+
+
+
+

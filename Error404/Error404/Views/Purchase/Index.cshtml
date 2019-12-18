@@ -1,0 +1,84 @@
+﻿@model Error404.Models.PurchaseViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Purchase Details";
+}
+
+
+<div class="container pb-5">
+    <h2 class="text-center">Purchase Details</h2>
+    <br /><br />
+        <div class="form-inline my-4">
+            <input class="form-control" type="text" name="Search" id="Search" placeholder="Search By Customer Name Or Date" style="width: 87%;border: 1px solid #19BDA5;">
+            <button id="SearchButton" class="btn btn-success">Search</button>
+            <h4 id="required" style="color:red;"></h4>
+        </div>
+    <br />
+    @Html.ActionLink("Add", "AddPurchase", "Purchase", null, new { @class = "btn btn-info" })
+    <br /><br />
+    <table class="table table-bordered table-hover" id="purchase">
+        <thead>
+            <tr class="badge-gradient-dark text-white">
+                <th>SL</th>
+                <th>Supplier</th>
+                <th>Date</th>
+                <th>Invoice Number</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int sl = 1;
+            }
+            @foreach (var supplier in Model.Purchases)
+            {
+                <tr>
+                    <td>@(sl++)</td>
+                    <td>@supplier.Supplier.Name</td>
+                    <td>@supplier.Date</td>
+                    <td>@supplier.InvoiceNo</td>
+                    <td>@Html.ActionLink("Details", "PurchaseDetails", "Purchase", new { Id = supplier.Id }, new { @class = "btn btn-danger" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section MyScript{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    @*For Live Search*@
+    <script>
+        $(document).ready(function () {
+            $("#SearchButton").click(function () {
+                if ($("#Search").val() == "") {
+                    //alert("required..");
+                    $("#required").text("Please Required Search Value");
+                    return;
+                }
+                $("#required").text("");
+                SearchTable($("#Search").val());
+            });
+
+            function SearchTable(value) {
+                $("#purchase tbody tr").each(function () {
+                    var found = 'false';
+                    $(this).each(function () {
+                        if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) > 0) {
+                            found = 'true';
+                        }
+                    });
+                    if (found == 'true') {
+                        $(this).show();
+                    }
+                    else {
+                        $(this).hide();
+                    }
+
+                });
+            }
+        });
+    </script>
+}

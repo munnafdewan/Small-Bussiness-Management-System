@@ -1,0 +1,92 @@
+﻿@model Error404.Models.PurchaseViewModel
+@{
+    ViewBag.Title = "PurchaseDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="container pb-5" style="width:50%">
+        <h2 class="text-center">Supplier Details</h2>
+        <br /><br />
+        <table class="table table-bordered table-hover">
+            <tbody>
+                @foreach (var purchase in Model.Purchases)
+                {
+                    <tr>
+                        <th class="badge-gradient-dark text-white">Supplier</th>
+                        <td>@purchase.Supplier.Name</td>
+                    </tr>
+                    <tr>
+                        <th class="badge-gradient-dark text-white">Date</th>
+                        <td>@purchase.Date</td>
+                    </tr>
+                    <tr>
+                        <th class="badge-gradient-dark text-white">Invoice Number</th>
+                        <td>@purchase.InvoiceNo</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <div class="container pb-5">
+        <h2 class="text-center">Product Details</h2>
+        <br /><br />
+        <table class="table table-bordered table-hover table-responsive">
+            <thead>
+                <tr class="badge-gradient-dark text-white">
+                    <th>Sl</th>
+                    <th>Category</th>
+                    <th>Product</th>
+                    <th>Code</th>
+                    <th>Available Qty</th>
+                    <th>Manufacture Date</th>
+                    <th>Expire Date</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Price</th>
+                    <th>Previous Unit Price</th>
+                    <th>Previous MRP</th>
+                    <th>MRP</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @{
+                    int i = 1;
+                    var PurchaseDetailsViewModel = ViewBag.Details;
+                }
+                @foreach (var purchaseList in PurchaseDetailsViewModel)
+                {
+
+                    <tr>
+                        <td>@(i++)</td>
+                        @foreach (var category in ViewBag.Category)
+                        {
+                            if (category.Id == purchaseList.CategoryId)
+                            {
+                                <td>@category.Name</td>
+                            }
+
+                        }
+                        <td>@purchaseList.Product.Name</td>
+                        <td>@purchaseList.Code</td>
+                        <td>@purchaseList.AvailableQuantity</td>
+                        <td>@purchaseList.ManufactureDate</td>
+                        <td>@purchaseList.ExpireDate</td>
+                        <td>@purchaseList.Quantity</td>
+                        <td>@purchaseList.UnitPrice</td>
+                        <td>@purchaseList.TotalPrice</td>
+                        <td>@purchaseList.PreviousUnitPrice</td>
+                        <td>@purchaseList.PreviousMRP</td>
+                        <td>@purchaseList.MRP</td>
+                        <td>@purchaseList.Remarks</td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        </div>

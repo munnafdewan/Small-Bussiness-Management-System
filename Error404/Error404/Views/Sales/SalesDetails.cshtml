@@ -1,0 +1,82 @@
+﻿@model Error404.Models.SaleViewModel
+@{
+    ViewBag.Title = "PurchaseDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container pb-5" style="width:50%">
+    <h2 class="text-center">Customrt Details</h2>
+    <br /><br />
+    <table class="table table-bordered table-hover">
+        <tbody>
+            @foreach (var purchase in Model.Sales)
+            {
+                <tr>
+                    <th>Customer</th>
+                    <td>@purchase.Customer.Name</td>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <td>@purchase.Date</td>
+                </tr>
+                <tr>
+                    <th>LoyalityPoint</th>
+                    <td>@purchase.Customer.Loyality</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div class="container pb-5">
+    <h2 class="text-center">Product Details</h2>
+    <br /><br />
+    <table class="table table-bordered table-hover table-responsive">
+        <thead>
+            <tr class="badge-gradient-dark text-white">
+                <th>Sl</th>
+                <th>Category</th>
+                <th>Product</th>
+                @*<th>Date</th>*@
+                <th>GrandTotal</th>
+                <th>Discount</th>
+                <th>DiscountAmount</th>
+                <th>PayableAmount</th>
+                <th>Quantity</th>
+                <th>AvailableQuantity</th>
+                <th>MRP</th>
+                <th>TotalMRP</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 1;
+                var SaleDetailsViewModel = ViewBag.Details;
+            }
+            @foreach (var salesList in SaleDetailsViewModel)
+            {
+                <tr>
+                    <td>@(i++)</td>
+                    @foreach (var category in ViewBag.Category)
+                    {
+                        if (category.Id == salesList.CategoryId)
+                        {
+                            <td>@category.Name</td>
+                        }
+                    }
+                    <td>@salesList.Product.Name</td>
+                    @*<td>@salesList.Date</td>*@
+                    @*<td>@salesList.</td>*@
+                    <td>@salesList.Sale.GrandTotal</td>
+                    <td>@salesList.Sale.Discount</td>
+                    <td>@salesList.Sale.DiscountAmount</td>
+                    <td>@salesList.Sale.PayableAmount</td>
+                    <td>@salesList.Quantity</td>
+                    <td>@salesList.AvailableQuantity</td>
+                    <td>@salesList.MRP</td>
+                    <td>@salesList.TotalMRP</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
